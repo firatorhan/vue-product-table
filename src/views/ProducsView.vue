@@ -14,7 +14,7 @@
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="product in products.products" :key="product.id">
+                    <TableRow v-for="product in products" :key="product.id">
                         <TableCell>{{ product.title }}</TableCell>
                         <TableCell>{{ product.description }}</TableCell>
                         <TableCell>{{ product.category }}</TableCell>
@@ -24,7 +24,8 @@
                 <TableFooter>
                     <TableRow>
                         <TableCell colspan="100%">
-                            <PaginationContainer :total="8" :items-per-page="2" :default-page="1" />
+                            <PaginationContainer :total="totalItems" :items-per-page="itemsPerPage"
+                                :default-page="currentPage" @page-changed="onPageChanged" />
                         </TableCell>
                     </TableRow>
                 </TableFooter>
@@ -42,9 +43,10 @@ import TableFooter from '@/components/table/TableFooter.vue';
 import TableHead from '@/components/table/TableHead.vue';
 import TableHeader from '@/components/table/TableHeader.vue';
 import TableRow from '@/components/table/TableRow.vue';
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
+    name: 'ProductList',
     components: {
         PaginationContainer,
         TableBody,
@@ -54,20 +56,32 @@ export default {
         TableHeader,
         TableHead,
         TableRow,
-
     },
-    name: 'ProductList',
     computed: {
-        ...mapGetters("product", ["allProducts"]),
-        products() {
-            return this.allProducts;
-        },
+        ...mapGetters("product", [
+            'products',
+            'totalItems',
+            'currentPage',
+            'itemsPerPage',
+            'allProducts'
+        ]),
+
+
     },
     data() {
         return {
 
         };
     },
+    methods: {
+        ...mapActions('product', ['fetchProducts']),
+
+        onPageChanged(page) {
+
+            console.log('page', page)
+            this.fetchProducts(page)
+        }
+    }
 
 };
 </script>

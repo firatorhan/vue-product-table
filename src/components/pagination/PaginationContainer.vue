@@ -53,16 +53,19 @@ export default {
         };
     },
     computed: {
+
         totalPages() {
             return Math.ceil(this.total / this.itemsPerPage);
         }
     },
     methods: {
         setPage(page) {
-            console.log('page', page)
             if (page >= 1 && page <= this.totalPages) {
                 this.currentPage = page;
                 this.$emit("page-changed", page);
+                const newQuery = { ...this.$route.query, page };
+                this.$router.push({ query: newQuery }).catch(() => {
+                });
 
             }
         },
