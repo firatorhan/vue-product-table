@@ -1,0 +1,32 @@
+// Core renkler
+$colors: (
+  primary: #3490dc,
+  secondary: #ffed4a,
+  success: #38c172,
+  danger: #e3342f,
+  warning: #f6993f,
+  info: #6cb2eb,
+  light: #f8f9fa,
+  dark: #343a40,
+  white: #ffffff,
+  black: #000000,
+);
+
+// Root font size - 1rem = 4px yapmak için
+html {
+  font-size: 4px;
+}
+
+// Text color classları
+@each $name, $color in $colors {
+  .text-#{$name} {
+    color: $color !important;
+  }
+}
+
+// Background color classları
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color !important;
+  }
+}
