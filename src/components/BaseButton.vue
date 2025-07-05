@@ -38,12 +38,10 @@ export default {
 @use 'sass:map';
 
 
-// 🔧 Renkleri map üzerinden almak için fonksiyon
 @function color($key) {
     @return map-get($colors, $key);
 }
 
-// 🧩 Varyantlar
 $variants: (
     primary: (bg: color(primary),
         text: color(white)),
@@ -53,7 +51,6 @@ $variants: (
         text: color(white))
 );
 
-// 🧱 Temel buton stilleri
 .base-button {
     display: inline-flex;
     align-items: center;
@@ -85,7 +82,6 @@ $variants: (
     }
 }
 
-// 🎨 Variant ve outlined stiller
 @each $name, $values in $variants {
     .variant-#{$name} {
         $bg: map-get($values, bg);
@@ -94,12 +90,10 @@ $variants: (
         background-color: $bg;
         color: $text;
 
-        // Solid hover
         &:hover:not(:disabled):not(.is-outlined) {
             background-color: rgba($bg, 0.85);
         }
 
-        // Outlined versiyon
         &.is-outlined {
             background-color: transparent;
             border: 1px solid $bg;
