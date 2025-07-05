@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .table-container {
     border: 1px solid #e5e7eb;
     border-radius: 2rem;

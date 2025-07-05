@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #table-td {
     vertical-align: middle;
     white-space: wrap;

@@ -14,9 +14,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #table-tbody {
-    
     tr:last-child {
         border: 0;
     }

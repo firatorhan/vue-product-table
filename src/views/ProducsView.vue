@@ -24,7 +24,7 @@
                 <TableFooter>
                     <TableRow>
                         <TableCell colspan="100%">
-                            Footer
+                            <PaginationContainer :total="8" :items-per-page="2" :default-page="1" />
                         </TableCell>
                     </TableRow>
                 </TableFooter>
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import PaginationContainer from '@/components/pagination/PaginationContainer.vue';
 import TableBody from '@/components/table/TableBody.vue';
 import TableCell from '@/components/table/TableCell.vue';
 import TableContainer from '@/components/table/TableContainer.vue';
@@ -45,13 +46,15 @@ import { mapGetters } from "vuex";
 
 export default {
     components: {
+        PaginationContainer,
         TableBody,
         TableCell,
         TableContainer,
         TableFooter,
         TableHeader,
         TableHead,
-        TableRow
+        TableRow,
+
     },
     name: 'ProductList',
     computed: {

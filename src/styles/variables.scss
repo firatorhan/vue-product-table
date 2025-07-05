@@ -1,14 +1,14 @@
 $colors: (
-  primary: #3490dc,
-  secondary: #ffed4a,
-  success: #38c172,
-  danger: #e3342f,
-  warning: #f6993f,
-  info: #6cb2eb,
-  muted-hover: #9ca3af40,
-  dark: #343a40,
+  primary: #3b82f6,       
+  secondary: #6b7280,     
+  success: #22c55e,       
+  danger: #ef4444,        
+  warning: #f59e0b,       
+  info: #0ea5e9,          
+  muted-hover: #f3f4f680, 
+  dark: #111827,           
   white: #ffffff,
-  black: #000000,
+  black: #000000
 );
 
 @function color($key) {

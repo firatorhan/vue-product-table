@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #table-thead {
     tr {
         border-bottom: 1px solid color(muted-hover);
