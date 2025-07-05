@@ -16,6 +16,6 @@ export default {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 50px;
+
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-    <div>
-        TableBody
-    </div>
+    <tbody id="table-tbody">
+        <slot />
+    </tbody>
 </template>
 
 <script>
@@ -14,4 +14,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+#table-tbody {
+    
+    tr:last-child {
+        border: 0;
+    }
+}
+</style>

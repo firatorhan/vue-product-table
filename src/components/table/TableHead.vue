@@ -1,12 +1,12 @@
 <template>
-    <td id="table-td" class="p-2">
+    <th id="table-th" class="text-primary p-2">
         <slot />
-    </td>
+    </th>
 </template>
 
 <script>
 export default {
-    name: 'TableCell',
+    name: 'TableHeader',
     data() {
         return {
         };
@@ -15,8 +15,9 @@ export default {
 </script>
 
 <style lang="scss">
-#table-td {
+#table-th {
+    text-align: left;
     vertical-align: middle;
-    white-space: wrap;
+    white-space: nowrap;
 }
 </style>

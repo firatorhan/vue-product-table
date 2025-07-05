@@ -1,12 +1,12 @@
 <template>
     <div>
-        TablePagination
+        TableFilter
     </div>
 </template>
 
 <script>
 export default {
-    name: 'TablePagination',
+    name: 'TableFilter',
     data() {
         return {
         };

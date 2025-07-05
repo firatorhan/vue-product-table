@@ -1,17 +1,21 @@
 <template>
-    <div>
-        TableFooter
-    </div>
+  <tfoot id="table-tfoot" class="bg-muted-hover">
+    <slot />
+  </tfoot>
 </template>
 
 <script>
 export default {
-    name: 'TableFooter',
-    data() {
-        return {
-        };
-    },
+  name: 'TableFooter',
+  data() {
+    return {
+    };
+  },
 };
 </script>
 
-<style></style>
+<style>
+#table-tfoot {
+  border-top: 1px solid #e5e7eb;
+}
+</style>

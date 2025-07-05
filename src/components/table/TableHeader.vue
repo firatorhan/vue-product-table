@@ -1,7 +1,7 @@
 <template>
-    <div>
-        TableHeader
-    </div>
+    <thead id="table-thead">
+        <slot />
+    </thead>
 </template>
 
 <script>
@@ -14,4 +14,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+#table-thead {
+    tr {
+        border-bottom: 1px solid color(muted-hover);
+    }
+}
+</style>
