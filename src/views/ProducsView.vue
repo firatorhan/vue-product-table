@@ -22,6 +22,9 @@
             <TableBody v-if="loading">
                 <TableRow v-for="product in itemsPerPage" :key="product.id">
                     <TableCell>
+                        <BaseSkeleton width="80px" height="80px" />
+                    </TableCell>
+                    <TableCell>
                         <BaseSkeleton />
                     </TableCell>
                     <TableCell>
@@ -41,8 +44,7 @@
             <TableBody v-else>
                 <TableRow v-for="product in products" :key="product.id">
                     <TableCell>
-                        <img :src="product.images[0]" alt="Ürün"
-                            style="width: 80px; height: auto; border-radius: 4px;" />
+                        <img :src="product.images[0]" :alt="product.description" class="product-img" />
                     </TableCell>
                     <TableCell>{{ product.id }}</TableCell>
                     <TableCell>{{ product.title }}</TableCell>
@@ -166,5 +168,11 @@ export default {
         height: 25px;
     }
 
+}
+
+.product-img {
+    width: 80px;
+    height: auto;
+    border-radius: 4px;
 }
 </style>
