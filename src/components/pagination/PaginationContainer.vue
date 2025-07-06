@@ -67,7 +67,6 @@ export default {
             const maxVisible = 10;
             const total = this.totalPages;
             const current = this.currentPage;
-
             if (total <= maxVisible) {
                 return Array.from({ length: total }, (_, i) => i + 1);
             }
@@ -89,11 +88,11 @@ export default {
                 this.currentPage = page;
                 this.$emit("page-changed", page);
                 const newQuery = { ...this.$route.query, page };
-                this.$router.push({ query: newQuery }).catch(() => {
-                });
-
+                if (this.$route.query.page !== String(page)) {
+                    this.$router.push({ query: newQuery }).catch(() => { });
+                }
             }
-        },
+        }
 
 
     }

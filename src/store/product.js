@@ -592,9 +592,11 @@ const state = {
         "https://cdn.dummyjson.com/product-images/kitchen-accessories/black-whisk/thumbnail.webp",
     },
   ],
-  totalItems: 20,
+  loading: true,
+  totalItems: 0,
   currentPage: 1,
-  itemsPerPage: 2,
+  itemsPerPage: 5,
+  sortOrder: "asc", // veya 'desc
 };
 
 const getters = {
@@ -603,6 +605,16 @@ const getters = {
   totalItems: (state) => state.totalItems,
   currentPage: (state) => state.currentPage,
   itemsPerPage: (state) => state.itemsPerPage,
+  loading: (state) => state.loading,
+  sortedProducts: (state) => {
+    return [...state.products].sort((a, b) => {
+      if (state.sortOrder === "asc") {
+        return a.price - b.price;
+      } else {
+        return b.price - a.price;
+      }
+    });
+  },
 };
 
 const mutations = {
@@ -618,29 +630,36 @@ const mutations = {
   SET_ITEMS_PER_PAGE(state, count) {
     state.itemsPerPage = count;
   },
+  SET_LOADING(state, loading) {
+    state.loading = loading;
+  },
+  SET_SORT_ORDER(state, order) {
+    state.sortOrder = order;
+  },
 };
 
 const actions = {
   fetchProducts({ commit, state }, page = 1) {
+    commit("SET_LOADING", true);
     const limit = state.itemsPerPage;
     const skip = (page - 1) * limit;
-
+    // https://dummyjson.com/products
     return axios
-      .get("/progress", {
+      .get("https://dummyjson.com/products", {
         params: {
           limit,
           skip,
         },
       })
       .then((response) => {
-        console.log("ress", response);
         commit("SET_PRODUCTS", response.data.products);
         commit("SET_TOTAL_ITEMS", response.data.total);
         commit("SET_CURRENT_PAGE", page);
       })
       .catch((error) => {
         console.error("API error:", error);
-      });
+      })
+      .finally(() => commit("SET_LOADING", false));
   },
 };
 
