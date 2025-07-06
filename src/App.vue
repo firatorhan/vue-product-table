@@ -1,21 +1,10 @@
 <template>
-  <div id="app">
+  <main>
     <router-view />
-  </div>
+  </main>
 </template>
-
-<script>
-export default {
-  name: 'App',
-};
+<script setup>
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
-}
-</style>
+<style lang="scss"></style>

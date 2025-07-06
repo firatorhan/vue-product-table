@@ -4,17 +4,12 @@
     </thead>
 </template>
 
-<script>
-export default {
-    name: 'TableHeader',
-    data() {
-        return {
-        };
-    },
-};
+<script setup>
 </script>
 
 <style lang="scss" scoped>
+@use "sass:map";
+
 #table-thead {
     tr {
         border-bottom: 1px solid color(muted-hover);

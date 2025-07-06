@@ -65,82 +65,63 @@
     </div>
 </template>
 
-<script>
-import BaseButton from '@/components/BaseButton.vue';
-import BaseSkeleton from '@/components/BaseSkeleton.vue';
-import PaginationContainer from '@/components/pagination/PaginationContainer.vue';
-import TableBody from '@/components/table/TableBody.vue';
-import TableCell from '@/components/table/TableCell.vue';
-import TableContainer from '@/components/table/TableContainer.vue';
-import TableFooter from '@/components/table/TableFooter.vue';
-import TableHead from '@/components/table/TableHead.vue';
-import TableHeader from '@/components/table/TableHeader.vue';
-import TableRow from '@/components/table/TableRow.vue';
-import { mapActions, mapGetters, mapMutations } from "vuex";
+<script setup>
+import { useRoute, useRouter } from 'vue-router'
+import { onMounted, computed } from 'vue'
+import { useProductStore } from '@/store/product'
 
-export default {
-    name: 'ProductList',
-    components: {
-        PaginationContainer,
-        TableBody,
-        TableCell,
-        TableContainer,
-        TableFooter,
-        TableHeader,
-        TableHead,
-        TableRow,
-        BaseSkeleton,
-        BaseButton
-    },
-    computed: {
-        ...mapGetters("product", [
-            'sortedProducts',
-            'totalItems',
-            'currentPage',
-            'itemsPerPage',
-            'loading'
-        ]),
-        products() {
-            return this.sortedProducts;
-        }
-    },
-    methods: {
-        ...mapActions('product', ['fetchProducts']),
-        ...mapMutations('product', ['SET_SORT_ORDER', 'SET_CURRENT_PAGE']),
+import BaseButton from '@/components/BaseButton.vue'
+import BaseSkeleton from '@/components/BaseSkeleton.vue'
+import PaginationContainer from '@/components/pagination/PaginationContainer.vue'
+import TableBody from '@/components/table/TableBody.vue'
+import TableCell from '@/components/table/TableCell.vue'
+import TableContainer from '@/components/table/TableContainer.vue'
+import TableFooter from '@/components/table/TableFooter.vue'
+import TableHead from '@/components/table/TableHead.vue'
+import TableHeader from '@/components/table/TableHeader.vue'
+import TableRow from '@/components/table/TableRow.vue'
 
-        onPageChanged(page) {
-            this.fetchProducts(page);
-        },
-        changeSort(order) {
-            this.SET_SORT_ORDER(order);
-            const newQuery = { ...this.$route.query, sort: order };
+const store = useProductStore()
+const route = useRoute()
+const router = useRouter()
 
-            if (this.$route.query.sort !== order) {
-                this.$router.push({ query: newQuery })
-            }
-        },
-        getStockClass(stock) {
-            if (stock === 0) {
-                return 'text-danger';
-            } else if (stock > 0 && stock <= 5) {
-                return 'text-warning';
-            } else {
-                return 'text-success';
-            }
-        }
+const products = computed(() => store.sortedProducts)
+const loading = computed(() => store.loading)
+const totalItems = computed(() => store.totalItems)
+const currentPage = computed(() => store.currentPage)
+const itemsPerPage = computed(() => store.itemsPerPage)
 
-    },
-    mounted() {
-        const sort = this.$route.query.sort;
-        const page = Number(this.$route.query.page) || this.currentPage;
-        if (sort === 'asc' || sort === 'desc') {
-            this.SET_SORT_ORDER(sort);
-        }
-        this.SET_CURRENT_PAGE(page);
-        this.fetchProducts(page);
+function onPageChanged(page) {
+    store.fetchProducts(page)
+}
+
+function changeSort(order) {
+    store.setSortOrder(order)
+    const newQuery = { ...route.query, sort: order }
+    if (route.query.sort !== order) {
+        router.push({ query: newQuery })
     }
-};
+}
+
+function getStockClass(stock) {
+    if (stock === 0) return 'text-danger'
+    else if (stock > 0 && stock <= 5) return 'text-warning'
+    else return 'text-success'
+}
+
+onMounted(() => {
+    const sort = route.query.sort
+    const page = Number(route.query.page) || store.currentPage
+
+    if (sort === 'asc' || sort === 'desc') {
+        store.setSortOrder(sort)
+    }
+
+    store.setCurrentPage(page)
+    store.fetchProducts(page)
+})
 </script>
+
 
 
 <style lang="scss" scoped>

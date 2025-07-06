@@ -1,22 +1,13 @@
 <template>
-    <div id="pagination-list">
-        <slot />
-    </div>
+  <div id="pagination-list">
+    <slot />
+  </div>
 </template>
 
-<script>
-export default {
-    name: 'PaginationList',
-    data() {
-        return {
-            currentPage: this.defaultPage,
-        };
-    },
+<script setup>
 
-
-
-};
 </script>
+
 
 <style lang="scss" scoped>
 #pagination-list {

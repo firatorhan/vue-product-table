@@ -1,54 +1,63 @@
 <template>
-    <button :class="[
-        'base-button',
-        `variant-${variant}`,
-        { 'is-block': block },
-        { 'is-disabled': disabled },
-        { 'is-outlined': outlined }
-    ]" :disabled="disabled" @click="$emit('click')">
-        <slot />
-    </button>
+  <button
+    :class="[
+      'base-button',
+      `variant-${variant}`,
+      { 'is-block': block },
+      { 'is-disabled': disabled },
+      { 'is-outlined': outlined }
+    ]"
+    :disabled="disabled"
+    @click="$emit('click')"
+  >
+    <slot />
+  </button>
 </template>
 
-<script>
-export default {
-    name: 'AppButton',
-    props: {
-        variant: {
-            type: String,
-            default: 'primary', // primary, secondary, danger
-        },
-        disabled: {
-            type: Boolean,
-            default: false,
-        },
-        block: {
-            type: Boolean,
-            default: false,
-        },
-        outlined: {
-            type: Boolean,
-            default: false,
-        },
-    },
-};
-</script>
+<script setup>
+import { defineProps, defineEmits } from 'vue';
 
-<style lang="scss" scoped>
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'primary', // primary, secondary, danger
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  block: {
+    type: Boolean,
+    default: false,
+  },
+  outlined: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['click']);
+</script>
+<style lang="scss">
 @use 'sass:map';
 
 
 @function color($key) {
-    @return map-get($colors, $key);
+    @return map.get($colors, $key);
 }
-
 $variants: (
-    primary: (bg: color(primary),
-        text: color(white)),
-    secondary: (bg: color(secondary),
-        text: color(white)),
-    danger: (bg: color(danger),
-        text: color(white))
+  primary: (
+    bg: color("primary"),
+    text: color("white")
+  ),
+  secondary: (
+    bg: color("secondary"),
+    text: color("white")
+  ),
+  danger: (
+    bg: color("danger"),
+    text: color("white")
+  )
 );
 
 .base-button {
@@ -83,27 +92,28 @@ $variants: (
 }
 
 @each $name, $values in $variants {
-    .variant-#{$name} {
-        $bg: map-get($values, bg);
-        $text: map-get($values, text);
+  .variant-#{$name} {
+    $bg: map.get($values, "bg");
+    $text: map.get($values, "text");
 
+    background-color: $bg;
+    color: $text;
+
+    &:hover:not(:disabled):not(.is-outlined) {
+      background-color: rgba($bg, 0.85);
+    }
+
+    &.is-outlined {
+      background-color: transparent;
+      border: 1px solid $bg;
+      color: $bg;
+
+      &:hover:not(:disabled) {
         background-color: $bg;
         color: $text;
-
-        &:hover:not(:disabled):not(.is-outlined) {
-            background-color: rgba($bg, 0.85);
-        }
-
-        &.is-outlined {
-            background-color: transparent;
-            border: 1px solid $bg;
-            color: $bg;
-
-            &:hover:not(:disabled) {
-                background-color: $bg;
-                color: $text
-            }
-        }
+      }
     }
+  }
 }
+
 </style>
