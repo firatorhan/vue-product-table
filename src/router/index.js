@@ -1,20 +1,17 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import ProducsView from "../views/ProducsView.vue";
-
-Vue.use(VueRouter);
+import { createRouter, createWebHistory } from 'vue-router'
+import ProductsView from '@/views/ProducsView.vue'
 
 const routes = [
   {
-    path: "/",
-    name: "Products",
-    component: ProducsView,
-  },
-];
+    path: '/',
+    name: 'Products',
+    component: ProductsView
+  }
+]
 
-const router = new VueRouter({
-  mode: "history",
-  routes,
-});
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
 
-export default router;
+export default router

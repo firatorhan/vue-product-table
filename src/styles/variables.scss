@@ -1,18 +1,19 @@
+@use "sass:map";
 $colors: (
-  primary: #3b82f6,       
-  secondary: #6b7280,     
-  success: #22c55e,       
-  danger: #ef4444,        
-  warning: #f59e0b,       
-  info: #0ea5e9,          
-  muted-hover: #f3f4f680, 
-  dark: #111827,           
-  white: #ffffff,
-  black: #000000
+  "primary": #3b82f6,       
+  "secondary": #6b7280,     
+  "success": #22c55e,       
+  "danger": #ef4444,        
+  "warning": #f59e0b,       
+  "info": #0ea5e9,          
+  "muted-hover": #f3f4f680, 
+  "dark": #111827,           
+  "white": #ffffff,
+  "black": #000000
 );
 
 @function color($key) {
-  @return map-get($colors, $key);
+  @return map.get($colors, $key);
 }
 
 // Root font size - 1rem = 4px yapmak için
