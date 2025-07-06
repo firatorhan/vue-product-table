@@ -4,7 +4,7 @@
 
 This project displays a list of products fetched page-by-page from an API in a dynamic Vue table. Users can paginate through products, sort them by price ascending or descending. The project contains both Vue 2 Option API and Vue 3 Composition API implementations.
 
----
+<img width="1680" alt="Ekran Resmi 2025-07-06 13 47 00" src="https://github.com/user-attachments/assets/ce8d96d5-c405-425f-beb5-7516add07fce" />
 
 ## Branches
 
