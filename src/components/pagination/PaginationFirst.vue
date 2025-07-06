@@ -1,24 +1,13 @@
 <template>
-
-    <BaseButton :outlined="true" @click="$emit('click')">
-        <slot><span class="icon">&#171;</span></slot>
-    </BaseButton>
-
+  <BaseButton :outlined="true" @click="$emit('click')">
+    <slot>
+      <span class="icon">&#171;</span>
+    </slot>
+  </BaseButton>
 </template>
 
-<script>
+<script setup>
 import BaseButton from '../BaseButton.vue';
-
-export default {
-    components: {
-        BaseButton
-    },
-    name: 'PaginationFirst',
-    data() {
-        return {
-        };
-    },
-};
 </script>
 
 <style lang="scss" scoped>

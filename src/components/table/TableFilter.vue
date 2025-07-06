@@ -1,17 +1,10 @@
 <template>
-    <div>
-        TableFilter
-    </div>
+  <div>
+    TableFilter
+  </div>
 </template>
 
-<script>
-export default {
-    name: 'TableFilter',
-    data() {
-        return {
-        };
-    },
-};
+<script setup>
 </script>
 
 <style></style>

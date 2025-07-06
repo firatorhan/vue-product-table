@@ -1,6 +1,5 @@
 <template>
     <div id="pagination-container">
-
         <PaginationFirst @click="setPage(1)" />
         <PaginationPrev @click="setPage(currentPage - 1)" />
         <PaginationList>
@@ -18,7 +17,10 @@
 
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
 import PaginationEllipsis from './PaginationEllipsis.vue';
 import PaginationFirst from './PaginationFirst.vue';
 import PaginationLast from './PaginationLast.vue';
@@ -27,76 +29,68 @@ import PaginationListItem from './PaginationListItem.vue';
 import PaginationNext from './PaginationNext.vue';
 import PaginationPrev from './PaginationPrev.vue';
 
-export default {
-    components: {
-        PaginationFirst,
-        PaginationEllipsis,
-        PaginationLast,
-        PaginationList,
-        PaginationListItem,
-        PaginationNext,
-        PaginationPrev,
+const props = defineProps({
+    itemsPerPage: {
+        type: Number,
+        required: true,
     },
-    name: 'PaginationContainer',
-    props: {
-        itemsPerPage: {
-            type: Number,
-            required: true,
-        },
-        total: {
-            type: Number,
-            required: true,
-        },
-        defaultPage: {
-            type: Number,
-            required: true,
-        },
+    total: {
+        type: Number,
+        required: true,
     },
-    data() {
-        return {
-            currentPage: this.defaultPage,
-        };
+    defaultPage: {
+        type: Number,
+        required: true,
     },
-    computed: {
-        totalPages() {
-            return Math.ceil(this.total / this.itemsPerPage);
-        },
+});
 
+const emit = defineEmits(['page-changed']);
 
-        visiblePages() {
-            const maxVisible = 10;
-            const total = this.totalPages;
-            const current = this.currentPage;
-            if (total <= maxVisible) {
-                return Array.from({ length: total }, (_, i) => i + 1);
-            }
+const route = useRoute();
+const router = useRouter();
 
-            let start = Math.max(current - Math.floor(maxVisible / 2), 1);
-            let end = start + maxVisible - 1;
+const currentPage = ref(props.defaultPage);
 
-            if (end > total) {
-                end = total;
-                start = end - maxVisible + 1;
-            }
+const totalPages = computed(() => Math.ceil(props.total / props.itemsPerPage));
 
-            return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-        }
-    },
-    methods: {
-        setPage(page) {
-            if (page >= 1 && page <= this.totalPages) {
-                this.currentPage = page;
-                this.$emit("page-changed", page);
-                const newQuery = { ...this.$route.query, page };
-                if (this.$route.query.page !== String(page)) {
-                    this.$router.push({ query: newQuery }).catch(() => { });
-                }
-            }
-        }
+const visiblePages = computed(() => {
+    const maxVisible = 10;
+    const total = totalPages.value;
+    const current = currentPage.value;
 
-
+    if (total <= maxVisible) {
+        return Array.from({ length: total }, (_, i) => i + 1);
     }
-};
+
+    let start = Math.max(current - Math.floor(maxVisible / 2), 1);
+    let end = start + maxVisible - 1;
+
+    if (end > total) {
+        end = total;
+        start = end - maxVisible + 1;
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+});
+
+function setPage(page) {
+    if (page >= 1 && page <= totalPages.value) {
+        currentPage.value = page;
+        emit('page-changed', page);
+
+        const newQuery = { ...route.query, page };
+        if (route.query.page !== String(page)) {
+            router.push({ query: newQuery }).catch(() => { });
+        }
+    }
+}
+
+watch(() => route.query.page, (newPage) => {
+    const pageNumber = Number(newPage);
+    if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages.value) {
+        currentPage.value = pageNumber;
+    }
+});
 
 </script>
 

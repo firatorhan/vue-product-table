@@ -1,39 +1,43 @@
 <template>
-    <button :class="[
-        'base-button',
-        `variant-${variant}`,
-        { 'is-block': block },
-        { 'is-disabled': disabled },
-        { 'is-outlined': outlined }
-    ]" :disabled="disabled" @click="$emit('click')">
-        <slot />
-    </button>
+  <button
+    :class="[
+      'base-button',
+      `variant-${variant}`,
+      { 'is-block': block },
+      { 'is-disabled': disabled },
+      { 'is-outlined': outlined }
+    ]"
+    :disabled="disabled"
+    @click="$emit('click')"
+  >
+    <slot />
+  </button>
 </template>
 
-<script>
-export default {
-    name: 'AppButton',
-    props: {
-        variant: {
-            type: String,
-            default: 'primary', // primary, secondary, danger
-        },
-        disabled: {
-            type: Boolean,
-            default: false,
-        },
-        block: {
-            type: Boolean,
-            default: false,
-        },
-        outlined: {
-            type: Boolean,
-            default: false,
-        },
-    },
-};
-</script>
+<script setup>
+import { defineProps, defineEmits } from 'vue';
 
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'primary', // primary, secondary, danger
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  block: {
+    type: Boolean,
+    default: false,
+  },
+  outlined: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['click']);
+</script>
 <style lang="scss">
 @use 'sass:map';
 

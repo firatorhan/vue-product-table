@@ -4,17 +4,10 @@
   </tfoot>
 </template>
 
-<script>
-export default {
-  name: 'TableFooter',
-  data() {
-    return {
-    };
-  },
-};
+<script setup>
 </script>
 
-<style>
+<style lang="scss" scoped>
 #table-tfoot {
   border-bottom: 1px solid color(muted-hover);
   transition: background-color 0.2s ease;
@@ -22,13 +15,12 @@ export default {
 
   tr {
     &:hover {
-     background-color: unset;
+      background-color: unset;
     }
 
     &.no-hover:hover {
       background-color: unset;
     }
   }
-
 }
 </style>

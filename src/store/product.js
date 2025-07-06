@@ -35,6 +35,7 @@ export const useProductStore = defineStore('product', {
         this.currentPage = page
       } catch (error) {
         console.error('API error:', error)
+        alert('İstek sırasında bir hata oluştu.')
       } finally {
         this.loading = false
       }
