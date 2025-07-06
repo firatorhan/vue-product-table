@@ -1,0 +1,96 @@
+$spaces: (
+  0: 0,
+  1: 1rem,
+  2: 2rem,
+  3: 3rem,
+  4: 4rem,
+  5: 5rem,
+);
+
+$directions: (
+  "": "",
+  t: "-top",
+  e: "-right",
+  b: "-bottom",
+  s: "-left",
+);
+
+// Auto için aynı yönler, x ve y da ekleniyor
+$auto-directions: (
+  "": "",
+  t: "-top",
+  e: "-right",
+  b: "-bottom",
+  s: "-left",
+  x: "",
+  y: ""
+);
+
+@each $space-key, $space-value in $spaces {
+  // Padding
+  @each $dir-key, $dir-suffix in $directions {
+    @if $dir-key == "" {
+      .p-#{$space-key} {
+        padding: $space-value;
+      }
+    } @else {
+      .p-#{$dir-key}-#{$space-key} {
+        padding#{$dir-suffix}: $space-value;
+      }
+    }
+  }
+  // x ve y için padding
+  .p-x-#{$space-key} {
+    padding-left: $space-value;
+    padding-right: $space-value;
+  }
+  .p-y-#{$space-key} {
+    padding-top: $space-value;
+    padding-bottom: $space-value;
+  }
+
+  // Margin
+  @each $dir-key, $dir-suffix in $directions {
+    @if $dir-key == "" {
+      .m-#{$space-key} {
+        margin: $space-value;
+      }
+    } @else {
+      .m-#{$dir-key}-#{$space-key} {
+        margin#{$dir-suffix}: $space-value;
+      }
+    }
+  }
+  // x ve y için margin
+  .m-x-#{$space-key} {
+    margin-left: $space-value;
+    margin-right: $space-value;
+  }
+  .m-y-#{$space-key} {
+    margin-top: $space-value;
+    margin-bottom: $space-value;
+  }
+}
+
+// Margin auto classları
+@each $dir-key, $dir-suffix in $auto-directions {
+  @if $dir-key == "" {
+    .m-auto {
+      margin: auto;
+    }
+  } @else if $dir-key == "x" {
+    .m-x-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  } @else if $dir-key == "y" {
+    .m-y-auto {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  } @else {
+    .m-#{$dir-key}-auto {
+      margin#{$dir-suffix}: auto;
+    }
+  }
+}
