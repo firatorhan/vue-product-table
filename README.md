@@ -62,10 +62,10 @@ This project displays a list of products fetched page-by-page from an API in a d
 ### For Vue 3 version
 
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/firatorhan/vue-product-table.git
 
 # Enter project directory
-cd <project-folder>
+cd vue-product-table
 
 # Switch to main branch (Vue 3)
 git checkout main
@@ -81,10 +81,10 @@ npm run dev
 ### For Vue 2 version
 
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/firatorhan/vue-product-table.git
 
 # Enter project directory
-cd <project-folder>
+cd vue-product-table
 
 # Switch to vue2 branch
 git checkout vue2
